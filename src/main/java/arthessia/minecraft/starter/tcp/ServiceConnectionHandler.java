@@ -1,7 +1,9 @@
 package arthessia.minecraft.starter.tcp;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -22,6 +24,9 @@ public class ServiceConnectionHandler {
 
     @Value("${minecraft.script.start}")
     private String scriptPath;
+
+    @Value("${minecraft.script.shell:sh}")
+    private String shell;
 
     private ServerSocket serverSocket;
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -76,12 +81,32 @@ public class ServiceConnectionHandler {
 
         ProcessBuilder processBuilder;
         if (os.contains("win")) {
+            log.info("Starting powershell script: {}", scriptPath);
             processBuilder = new ProcessBuilder("powershell.exe", "-ExecutionPolicy", "Bypass", "-File", scriptPath);
         } else {
-            processBuilder = new ProcessBuilder("bash", scriptPath);
+            log.info("Starting bash script: {}", scriptPath);
+            processBuilder = new ProcessBuilder(shell, scriptPath);
         }
 
-        minecraftProcess = processBuilder.start();
+        try {
+            minecraftProcess = processBuilder.start();
+
+            // Lire la sortie et les erreurs du processus
+            new Thread(() -> {
+                try (BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(minecraftProcess.getErrorStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.err.println("Minecraft server error: " + line);
+                    }
+                } catch (IOException e) {
+                    log.error("Error during startup: {}", e.getMessage());
+                }
+            }).start();
+
+        } catch (IOException e) {
+            e.printStackTrace(); // Afficher l'erreur pour un diagnostic
+        }
 
         new Thread(this::monitorMinecraftServer).start();
     }
