@@ -47,7 +47,6 @@ public class ServiceConnectionHandler {
                 try {
                     Socket clientSocket = serverSocket.accept();
                     log.info("Connection received.");
-
                     BufferedInputStream in = new BufferedInputStream(clientSocket.getInputStream());
                     byte[] buffer = new byte[1024];
                     int bytesRead = in.read(buffer);
