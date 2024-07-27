@@ -115,5 +115,7 @@ docker-compose down
 
 * Customization: You can customize the scripts and configurations based on your specific needs, such as adding plugins or modifying Minecraft server settings.
 * Resource Management: Ensure that your host machine has sufficient resources (CPU, memory) to run the Minecraft server smoothly.
-* Community Involvement: The isPingRequest method is currently not fully implemented and may not accurately differentiate between a server list ping and a player connection. Contributions and improvements from the community are welcome to enhance this feature and improve the overall project.
+* Community Involvement: 
+  * The isPingRequest method is currently not fully implemented and may not accurately differentiate between a server list ping and a player connection. Contributions and improvements from the community are welcome to enhance this feature and improve the overall project.
+  * Currently, there is no wake up message. Contributions and improvements from the community are welcome here too!
 
