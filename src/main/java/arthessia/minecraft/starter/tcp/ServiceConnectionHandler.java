@@ -94,10 +94,10 @@ public class ServiceConnectionHandler {
             // Lire la sortie et les erreurs du processus
             new Thread(() -> {
                 try (BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(minecraftProcess.getErrorStream()))) {
+                        new InputStreamReader(minecraftProcess.getInputStream()))) {
                     String line;
                     while ((line = reader.readLine()) != null) {
-                        System.err.println("Minecraft server error: " + line);
+                        log.info("Server -> {}", line);
                     }
                 } catch (IOException e) {
                     log.error("Error during startup: {}", e.getMessage());
