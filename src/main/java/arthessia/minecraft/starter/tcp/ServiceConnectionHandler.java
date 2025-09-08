@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j2;
 @Component
 public class ServiceConnectionHandler {
 
-    @Value("${minecraft.motd:25565}")
+    @Value("${minecraft.motd:Reveille moi ! Et retente dans 1 minute !}")
     private String motd;
 
     @Value("${minecraft.listen.port:25565}")
