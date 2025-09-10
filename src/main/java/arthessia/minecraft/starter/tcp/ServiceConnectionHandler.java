@@ -111,14 +111,14 @@ public class ServiceConnectionHandler {
 
                 } catch (IOException e) {
                     if (running) {
-                        e.printStackTrace();
+                        log.error("Error during request parsing: " + e.getMessage());
                     } else {
                         log.info("Server socket closed, stopping server.");
                     }
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error during server start: " + e.getMessage());
         }
     }
 
@@ -138,42 +138,6 @@ public class ServiceConnectionHandler {
 
         log.info("Pong response sent.");
     }
-
-    // private void startServer() {
-    // try {
-    // serverSocket = new ServerSocket(port);
-    // log.info("Minecraft TCP server listening on port " + port);
-
-    // while (running) {
-    // try {
-    // Socket clientSocket = serverSocket.accept();
-    // log.info("Connection received.");
-    // BufferedInputStream in = new
-    // BufferedInputStream(clientSocket.getInputStream());
-    // byte[] buffer = new byte[1024];
-    // int bytesRead = in.read(buffer);
-    // if (bytesRead > 0) {
-    // String request = new String(buffer, 0, bytesRead);
-    // if (isPingRequest(request)) {
-    // log.info("Ping request received: " + request);
-    // } else {
-    // log.info("Player connection request received: " + request);
-    // startMinecraftServer();
-    // clientSocket.close();
-    // }
-    // }
-    // } catch (IOException e) {
-    // if (running) {
-    // e.printStackTrace();
-    // } else {
-    // log.info("Server socket closed, stopping server.");
-    // }
-    // }
-    // }
-    // } catch (IOException e) {
-    // e.printStackTrace();
-    // }
-    // }
 
     private void startMinecraftServer() throws IOException {
         stopServer();
