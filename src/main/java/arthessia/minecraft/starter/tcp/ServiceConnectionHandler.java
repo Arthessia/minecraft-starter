@@ -63,15 +63,14 @@ public class ServiceConnectionHandler {
     @Value("${minecraft.script.shell:sh}")
     private String shell;
 
-    @Value("${minecraft.motd:§6Serveur en veille §8— §7connecte-toi pour le réveiller}")
+    @Value("${minecraft.motd:§6✦ SERVEUR EN VEILLE §8• §7Connecte-toi pour le réveiller}")
     private String motd;
 
-    @Value("${minecraft.message.starting:§6Le serveur démarre…§r\n§7Patiente une minute puis reconnecte-toi.}")
+    @Value("${minecraft.message.starting:§6⚡ DÉMARRAGE EN COURS…§r\n§7Le serveur se réveille. §8• §7Reviens dans quelques instants !}")
     private String startingMessage;
 
-    @Value("${minecraft.message.already-starting:§6Démarrage déjà en cours…§r\n§7Encore un peu de patience !}")
+    @Value("${minecraft.message.already-starting:§6⚡ DÉMARRAGE DÉJÀ EN COURS…§r\n§7Le serveur se prépare. §8• §7Encore quelques instants !}")
     private String alreadyStartingMessage;
-
     /**
      * Un client qui ouvre la socket sans rien envoyer ne doit pas bloquer
      * indéfiniment.
